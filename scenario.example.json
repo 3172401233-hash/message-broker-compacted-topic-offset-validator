@@ -1,0 +1,27 @@
+{
+  "now": 100000,
+  "tombstone_retention_ms": 5000,
+  "segments": [
+    {
+      "name": "00000000000000000000.log",
+      "records": [
+        {"offset": 0, "key": "user-1", "value": "{\"age\":30}", "timestamp": 90000},
+        {"offset": 1, "key": "user-2", "value": "{\"age\":25}", "timestamp": 90100},
+        {"offset": 2, "key": "user-1", "value": "{\"age\":31}", "timestamp": 91000},
+        {"offset": 3, "key": "user-2", "value": null, "timestamp": 92000}
+      ]
+    },
+    {
+      "name": "00000000000000000006.log",
+      "records": [
+        {"offset": 6, "key": "user-3", "value": "{\"age\":40}", "timestamp": 99000},
+        {"offset": 7, "key": "user-1", "value": null, "timestamp": 99800}
+      ]
+    }
+  ],
+  "consumers": [
+    {"group": "fast-consumer", "offset": 6},
+    {"group": "slow-consumer", "offset": 0, "retry_offset": 1},
+    {"group": "retry-consumer", "offset": 3}
+  ]
+}
